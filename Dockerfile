@@ -1,5 +1,7 @@
 FROM ubuntu:14.04
 
+LABEL ruby.version="2.2" exonerate.version="2.2.0" glib.version="2.31.12" mafft.version="7.123b" primer3.version="2.3.6"
+
 ARG DEBIAN_FRONTEND=noninteractive
 
 USER root
