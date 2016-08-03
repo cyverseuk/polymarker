@@ -1,0 +1,238 @@
+{
+  "name": "Polymarker",
+  "shortDescription": "an automated bioinformatics pipeline for SNP assay",
+  "version": "0.0.0",
+  "deploymentSystem": "data.iplantcollaborative.org",
+  "deploymentPath": "rosysnake/Polymarker",
+  "executionSystem": "cyverseUK-Batch2",
+  "executionType": "CLI",
+  "parallelism": "SERIAL",
+  "templatePath": "wrapper.sh",
+  "testPath": "test.sh",
+  "tags": [ "testing" ],
+  "ontology": [ ],
+  "inputs": [
+    {"id": "cFile",
+    "value": {
+      "required": true,
+      "default": "/mnt/data/references/wheat/Triticum_aestivum.IWGSC2.25.dna.genome.fa"
+    },
+    "details": { "label": "contig file",
+      "description": "File with contigs to use as database",
+      "showArgument": true,
+      "argument": "--contigs "
+    }},
+    {"id": "mFile",
+    "value": {
+      "required": false
+      },
+    "details": { "label": "marker file",
+      "description": "File with the list of markers to search from",
+      "showArgument": true,
+      "argument": "--marker_list "
+    },
+    "semantics": {
+      "maxCardinality": 1
+    }},
+    {"id": "sFile",
+    "value": {
+      "required": false
+      },
+    "details": { "label": "SNP file",
+      "description": " File with the list of snps to search from, requires --reference to get the sequence using a position",
+      "showArgument": true,
+      "argument": "--snp_list "
+    },
+    "semantics": {
+      "maxCardinality": 1
+      }},
+      {
+        "id": "tFile",
+        "value":{
+          "required": false
+        },
+        "details":{
+          "label": "mutation file",
+          "description": "File with the list of positions with mutation and the mutation line. requires --reference to get the sequence using a position",
+          "showArgument": true,
+          "argument": "--mutant_list "
+        },
+        "semantics": {
+          "maxCardinality": 1
+        }
+      },
+      {
+        "id": "ref",
+        "value": {
+          "required": false
+        },
+        "details": {
+          "label": "reference file",
+          "description": "Fasta file with the sequence for the markers (to complement --snp_list)",
+          "showArgument": true,
+          "argument": "--reference "
+        },
+        "semantics": {
+          "maxCardinality": 1
+        }
+      },
+      {
+        "id": "pFile",
+        "value": {
+          "required": false
+        },
+        "details": {
+          "label": "primer 3 preferences",
+          "description": "file with preferences to be sent to primer3",
+          "showArgument": true,
+          "argument": "--primer_3_preferences "
+        },
+        "semantics": {
+          "maxCardinality": 1
+        }
+      }
+    ],
+
+
+  "parameters": [
+    {"id": "GENOMES",
+    "value": {
+      "type": "number",
+      "visible": true,
+      "validator": "^[0-9]+$",
+      "default": 3
+    },
+    "details": {
+      "label" : "Number of genomes (default 3, for hexaploid)",
+      "showArgument": true,
+      "argument": "--genomes_count "
+      },
+    "semantics": {
+      "maxCardinality": 1
+      }},
+    {"id": "MINID",
+    "value": {
+      "type": "number",
+      "visible": true,
+      "validator":"^[0-9]$|^[0-9]{2}$|^100$",
+      "default": 90
+      },
+    "details": {
+      "label": "min identity",
+      "description": "Minimum identity to consider a hit (default 90). 0 to 100",
+      "showArgument": true,
+      "argument": "--min_identity "
+      },
+    "semantics": {
+      "maxCardinality": 1
+      }},
+    {"id": "MODEL",
+      "value": {
+        "type": "enumeration",
+        "enumValues": [
+          "est2genome",
+          "affine:local",
+          "ungapped"
+        ],
+        "visible": true
+      },
+      "details": {
+        "label": "exonerate model",
+        "description": "Model to be used in exonerate to search for the contigs",
+        "showArgument": true,
+        "argument": "--exonerate_model "
+      },
+      "semantics": {
+        "maxCardinality": 1
+      }
+    },
+    {"id": "ARM",
+      "value": {
+        "type": "enumeration",
+        "enumValues": [
+          "arm_selection_embl",
+          "arm_selection_morex",
+          "arm_selection_first_two",
+          "scaffold"
+        ],
+        "visible": true
+      },
+      "details": {
+        "label": "Function to decide the chromome arm",
+        "description": "Function to decide the chromome arm: embl) based on wheat ref; morex) barley option; first_two) two char per ch; scaffold) scaffold specific",
+        "showArgument": true,
+        "argument": "--arm_selection "
+      },
+      "semantics": {
+        "maxCardinality": 1
+      }
+    },
+    {"id": "PRIPSR",
+    "value": {
+      "type": "string",
+      "visible": true,
+      "validator": "^[0-9]+-[0-9]+$"
+      },
+    "details": {
+      "label": "PRIMER_PRODUCT_SIZE_RANGE",
+      "description": "option for primer_3_preferences file in format NUM-NUM"
+      },
+      "semantics": {
+        "maxCardinality": 1
+      }
+    },
+    {"id": "PRIMS",
+    "value": {
+      "type": "number",
+      "visible": true,
+      "validator": "^[0-9]+$"
+      },
+    "details": {
+      "label": "PRIMER_MAX_SIZE",
+      "description": "option for primer_3_preferences file"
+      },
+    "semantics": {
+      "maxCardinality": 1
+      }
+    },
+    {"id": "PRILACC",
+    "value": {
+      "type": "number",
+      "visible": true,
+      "validator": "^[0-9]+$"
+      },
+    "details": {
+      "label": "PRIMER_LIB_AMBIGUITY_CODES_CONSENSUS",
+      "description": "option for primer_3_preferences file"
+      },
+    "semantics": {
+      "maxCardinality": 1
+      }
+    },
+    {"id": "PRILB",
+    "value": {
+      "type": "number",
+      "visible": true,
+      "validator": "^[0-9]+$"
+      },
+    "details": {
+      "label": "PRIMER_LIBERAL_BASE",
+      "description": "option for primer_3_preferences file"
+      },
+    "semantics": {
+      "maxCardinality": 1
+      }
+    },
+    {"id": "PRINR",
+    "value": {
+      "type": "number",
+      "visible": true,
+      "validator": "^[0-9]+$"
+      },
+    "details": {
+      "label": "PRIMER_NUM_RETURN",
+      "description": "option for primer_3_preferences file"
+      }
+    }
+]
+}

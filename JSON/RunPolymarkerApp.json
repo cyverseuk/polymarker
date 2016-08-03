@@ -1,0 +1,12 @@
+{
+  "name" : "Polymarker-0.7.3",
+  "appId" : "Polymarker-0.0.0",
+  "archive" : true,
+  "inputs": {
+    "cFile" :  "http://de.iplantcollaborative.org/dl/d/7E57AD47-8736-4224-962A-D90E6D3597FA/MAGIC_90k_Genotypes_Numeric.csv",
+  },
+  "parameters" : {
+    "PHENOS": "Awns",
+    "COVS": "funnel"
+  }
+}
