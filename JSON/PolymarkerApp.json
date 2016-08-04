@@ -1,6 +1,10 @@
 {
   "name": "Polymarker",
   "shortDescription": "an automated bioinformatics pipeline for SNP assay",
+  "longDescription": "",
+  "helpURI": "http://polymarker.tgac.ac.uk/Markdown?md=About",
+  "datePublished": "",
+  "author": "",
   "version": "0.0.0",
   "deploymentSystem": "data.iplantcollaborative.org",
   "deploymentPath": "rosysnake/Polymarker",
