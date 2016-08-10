@@ -1,8 +1,3 @@
-#!/bin/bash
-
-rmthis=`ls`
-echo ${rmthis}
-
 locpFile="${pFile}"
 locPRIPSR="${PRIPSR}"
 locPRIMS="${PRILACC}"
@@ -42,9 +37,38 @@ if [ -z "${locpFile}" ]
 fi
 
 ARGS=" ${cFile} ${mFile} ${sFile} ${tFile} ${ref} ${GENOMES} ${MINID} ${MODEL} ${ARM} ${PRIFILE} --output output"
+CFILE=(${cFile})
+CFILE=${CFILE[@]:1}
+MFILE=(${mFile})
+MFILE=${MFILE[@]:1}
+SFILE=(${sFile})
+SFILE=${SFILE[@]:1}
+TFILE=(${tFile})
+TFILE=${TFILE[@]:1}
+REF=(${ref})
+REF=${REF[@]:1}
+PRIFILE=(${PRIFILE})
+PRIFILE=${PRIFILE[@]:1}
+INPUTS=" ${CFILE}, ${MFILE}, ${SFILE}, ${TFILE}, ${REF}, ${PRIFILE}"
+echo ${ARGS}
 
-docker run -v `pwd`:/data cyverseuk/polymarker:v0.7.3 bin/bash -c "source ../.bashrc; polymarker.rb ${ARGS}";
+echo  universe                = docker >> lib/condorSubmitEdit.htc
+echo docker_image            = cyverseuk/polymarker:v0.7.3 >> lib/condorSubmitEdit.htc
+echo executable               = ./launch.sh >> lib/condorSubmitEdit.htc
+echo arguments				= ${ARGS} >> lib/condorSubmitEdit.htc
+echo transfer_input_files = ${INPUTS} launch.sh >> lib/condorSubmitEdit.htc
+echo transfer_output_files = output >> lib/condorSubmitEdit.htc
+cat lib/condorSubmit.htc >> lib/condorSubmitEdit.htc
 
-rmthis=`echo ${rmthis} | sed s/.*\.out// -`
-rmthis=`echo ${rmthis} | sed s/.*\.err// -`
-rm --verbose ${rmthis}
+less lib/condorSubmitEdit.htc
+
+jobid=`condor_submit lib/condorSubmitEdit.htc`
+jobid=`echo $jobid | sed -e 's/Sub.*uster //'`
+jobid=`echo $jobid | sed -e 's/\.//'`
+
+#echo $jobid
+
+#echo going to monitor job $jobid
+condor_tail -f $jobid
+
+exit 0
