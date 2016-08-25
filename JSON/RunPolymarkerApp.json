@@ -1,12 +1,11 @@
 {
-  "name" : "Polymarker-0.7.3",
-  "appId" : "Polymarker-0.0.0",
+  "name" : "Polymarker",
+  "appId" : "Polymarker-0.7.3",
   "archive" : true,
   "inputs": {
-    "cFile" :  "http://de.iplantcollaborative.org/dl/d/7E57AD47-8736-4224-962A-D90E6D3597FA/MAGIC_90k_Genotypes_Numeric.csv",
+    "cFile": "agave://cyverseUK-Storage2//mnt/data/references/wheat/Triticum_aestivum.IWGSC2.25.dna.genome.fa",
+    "mFile": "http://de.iplantcollaborative.org/dl/d/680BF388-4118-4934-BB38-75321CAA1345/4AL_ensebl_variation_Polymarker-input.csv"
   },
   "parameters" : {
-    "PHENOS": "Awns",
-    "COVS": "funnel"
   }
 }

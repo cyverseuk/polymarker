@@ -43,7 +43,7 @@ fi
 
 ARGS=" ${cFile} ${mFile} ${sFile} ${tFile} ${ref} ${GENOMES} ${MINID} ${MODEL} ${ARM} ${PRIFILE} --output output"
 
-docker run -v `pwd`:/data cyverseuk/polymarker:v0.7.3 bin/bash -c "source ../.bashrc; polymarker.rb ${ARGS}";
+docker run -v `pwd`:/data cyverseuk/polymarker:v0.7.3 /bin/bash -c "source ../.bashrc; polymarker.rb ${ARGS}";
 
 rmthis=`echo ${rmthis} | sed s/.*\.out// -`
 rmthis=`echo ${rmthis} | sed s/.*\.err// -`
