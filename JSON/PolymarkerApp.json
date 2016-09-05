@@ -5,7 +5,7 @@
   "helpURI": "http://polymarker.tgac.ac.uk/Markdown?md=About",
   "datePublished": "",
   "author": "",
-  "label": "Polymarker v0.7.3",
+  "label": "Polymarker",
   "version": "0.7.3",
   "deploymentSystem": "cyverseUK-Storage2",
   "deploymentPath": "/mnt/data/rosysnake/Polymarker",
@@ -230,9 +230,9 @@
       "maxCardinality": 1
       }
     },
-    {"id": "string",
+    {"id": "PRINR",
     "value": {
-      "type": "number",
+      "type": "string",
       "visible": true,
       "validator": "^[0-9]+$"
       },
