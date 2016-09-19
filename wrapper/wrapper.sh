@@ -1,3 +1,5 @@
+#!/bin/bash
+
 locpFile="${pFile}"
 locPRIPSR="${PRIPSR}"
 locPRIMS="${PRILACC}"
@@ -35,30 +37,35 @@ if [ -z "${locpFile}" ]
   else
     PRIFILE=${locpFile}
 fi
+if [ -z "${CFILE}" ]
+  then
+    DOCK_IM="cyverseuk/polymarker_wheat:v0.7.3"
+    ARGS="--contigs Triticum_aestivum.IWGSC2.25.dna.genome.fa "
+  else
+    DOCK_IM="cyverseuk/polymarker:v0.7.3"
+    ARGS=" ${cFile} "
+fi
 
-ARGS=" ${cFile} ${mFile} ${sFile} ${tFile} ${ref} ${GENOMES} ${MINID} ${MODEL} ${ARM} ${PRIFILE} --output output"
+ARGS+=" ${mFile} ${sFile} ${tFile} ${ref} ${GENOMES} ${MINID} ${MODEL} ${ARM} ${PRIFILE} --output output"
+echo ARGS are "${ARGS}"
 CFILE=(${cFile})
-CFILE=${CFILE[@]:1}
 MFILE=(${mFile})
-MFILE=${MFILE[@]:1}
 SFILE=(${sFile})
-SFILE=${SFILE[@]:1}
 TFILE=(${tFile})
-TFILE=${TFILE[@]:1}
 REF=(${ref})
-REF=${REF[@]:1}
 PRIFILE=(${PRIFILE})
-PRIFILE=${PRIFILE[@]:1}
-INPUTS=" ${CFILE}, ${MFILE}, ${SFILE}, ${TFILE}, ${REF}, ${PRIFILE}"
-echo ${ARGS}
+INPUTS=" ${CFILE[@]:1}, ${MFILE[@]:1}, ${SFILE[@]:1}, ${TFILE[@]:1}, ${REF[@]:1}, ${PRIFILE[@]:1}"
+echo inputs are ${INPUTS}
+
+chmod +x launch.sh
 
 echo  universe                = docker >> lib/condorSubmitEdit.htc
-echo docker_image            = cyverseuk/polymarker:v0.7.3 >> lib/condorSubmitEdit.htc
+echo docker_image            = ${DOCK_IM} >> lib/condorSubmitEdit.htc
 echo executable               = ./launch.sh >> lib/condorSubmitEdit.htc
-echo arguments				= ${ARGS} >> lib/condorSubmitEdit.htc
-echo transfer_input_files = ${INPUTS} launch.sh >> lib/condorSubmitEdit.htc
+echo arguments                          = ${ARGS} >> lib/condorSubmitEdit.htc
+echo transfer_input_files = ${INPUTS}, launch.sh >> lib/condorSubmitEdit.htc
 echo transfer_output_files = output >> lib/condorSubmitEdit.htc
-cat lib/condorSubmit.htc >> lib/condorSubmitEdit.htc
+cat /mnt/data/rosysnake/lib/condorSubmit.htc >> lib/condorSubmitEdit.htc
 
 less lib/condorSubmitEdit.htc
 
