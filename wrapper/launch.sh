@@ -1,3 +1,3 @@
 #!/bin/bash
 
-source ../.bashrc; polymarker.rb $@
+eval "source /etc/profile.d/rvm.sh; mv /data/* .; polymarker.rb $@"
