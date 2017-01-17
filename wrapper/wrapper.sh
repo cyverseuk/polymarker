@@ -19,7 +19,7 @@ locpFile="${pFile}"
 locPRIPSR="${PRIPSR}"
 locPRIMS="${PRILACC}"
 locPRILB="${PRILB}"
-locPRINR="${PRINR}
+locPRINR="${PRINR}"
 
 if [ -z "${locpFile}" ]
   then
