@@ -1,10 +1,25 @@
 #!/bin/bash
 
+function debug {
+  echo "creating debugging directory"
+mkdir .debug
+for word in ${rmthis}
+  do
+    if [[ "${word}" == *.sh ]] || [[ "${word}" == lib ]]
+      then
+        mv "${word}" .debug;
+      fi
+  done
+}
+
+rmthis=`ls`
+echo ${rmthis}
+
 locpFile="${pFile}"
 locPRIPSR="${PRIPSR}"
 locPRIMS="${PRILACC}"
 locPRILB="${PRILB}"
-locPRINR="${PRINR}"
+locPRINR="${PRINR}
 
 if [ -z "${locpFile}" ]
   then
@@ -79,4 +94,6 @@ jobid=`echo $jobid | sed -e 's/\.//'`
 #echo going to monitor job $jobid
 condor_tail -f $jobid
 
-exit 0                  
+debug
+
+exit 0
