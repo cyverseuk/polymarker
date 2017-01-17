@@ -8,7 +8,7 @@
   "label": "Polymarker",
   "version": "0.7.3",
   "deploymentSystem": "cyverseUK-Storage2",
-  "deploymentPath": "/mnt/data/rosysnake/Polymarker",
+  "deploymentPath": "/mnt/data/apps/Polymarker",
   "executionSystem": "cyverseUK-Batch2",
   "executionType": "CLI",
   "parallelism": "SERIAL",
